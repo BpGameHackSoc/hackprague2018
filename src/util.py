@@ -4,8 +4,8 @@ import argparse
 import numpy as np 
 import scipy.misc
 
-file = 'data/fer2013/fer2013.csv'
-output = 'data/fer2013/extracted'
+file = '../data/fer2013/fer2013.csv'
+output = '../data/fer2013/extracted'
 
 w, h = 48, 48
 image = np.zeros((h, w), dtype=np.uint8)
