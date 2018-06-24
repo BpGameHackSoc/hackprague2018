@@ -23,7 +23,7 @@ def stream():
             #distribution = np.random.rand(7)
             #distribution /= distribution.sum()
             nums =  callback.__next__()
-            print(nums)
+            # print(nums)
             yield ",".join(np.char.mod('%.2f', nums)) + '\n'
             sleep(1)
     return app.response_class(generate(), mimetype='text/plain')

@@ -1,8 +1,12 @@
 import sys
 sys.path.append('..')
 import threading, queue
-from . import getdata
-from . import mobile
+try:
+    from . import getdata
+    from . import mobile
+except ImportError:
+    import getdata
+    import mobile
 import keras
 import numpy as np
 import time
@@ -14,8 +18,8 @@ labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 def scale_frame(frame):
     im = Image.fromarray(np.array(frame))
-    im = im.resize(48,48)
-    frame = np.array(frame).astype(np.float32)
+    im = im.resize((48,48))
+    frame = np.array(im).astype(np.float32)
     return frame
 
 def call_js(y):
@@ -49,7 +53,8 @@ def main():
         time.sleep(1)
 
 if __name__ == '__main__':
-    main()
+    for x in main():
+        show(x)
 
 
 #
