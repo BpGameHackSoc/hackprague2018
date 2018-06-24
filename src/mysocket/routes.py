@@ -16,8 +16,8 @@ def stream():
         while 1 == 1:
 
             #TODO: delete
-            distribution = np.random.rand(7)
-            distribution /= distribution.sum()
+            #distribution = np.random.rand(7)
+            #distribution /= distribution.sum()
             
             yield ",".join(np.char.mod('%.2f', distribution)) + '\n'
             sleep(1)
