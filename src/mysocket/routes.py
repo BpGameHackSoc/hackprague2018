@@ -1,4 +1,4 @@
-from src.socket import app
+from src.mysocket import app
 import numpy as np
 from flask import Flask, render_template
 from time import sleep
