@@ -10,7 +10,9 @@ def get_video_frames(queue, frame_num=30, out_shape=(48,48)):
     while True:
         frame_count += 1
         return_value,image = camera.read()
-        flip = cv2.flip(image, 1)
+        image = np.array(image)
+        crop = image[:,80:-80]
+        flip = cv2.flip(crop, 1)
         gray = cv2.cvtColor(flip,cv2.COLOR_BGR2GRAY)
         cv2.imshow('image',gray)
         if(frame_count>frame_num):
