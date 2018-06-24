@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Emotions</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='./jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='./canvas.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='./statistics.js') }}"></script>
+
+</head>
+<body>  
+
+    <div id='yt_container'><center><iframe width="660" height="360" src="https://www.youtube.com/embed/AqEzI9rPvP4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></center></div>
+    
+    <input type='hidden' id='anger_v' value=0 />
+    <input type='hidden' id='disgust_v' value=0 />
+    <input type='hidden' id='fear_v' value=0 />
+    <input type='hidden' id='happiness_v' value=0 />
+    <input type='hidden' id='sadness_v' value=0 />
+    <input type='hidden' id='surprise_v' value=0 />
+    <input type='hidden' id='neutrality_v' value=0 />
+    
+    
+    <!-- First, include the Webcam.js JavaScript Library -->
+    
+    <div class='centerized'>
+
+        <div id='chartContainer'></div>
+
+
+
+        <table id='emoticon-table'>
+            <tr>
+                <td>
+
+                    <img class='emoticon' title='anger' id='anger' src="{{url_for('static', filename='img/anger.png')}}" />
+                </td>
+
+                <td>
+                    <img class='emoticon' title='disgust' id='disgust' src="{{url_for('static', filename='img/disgust.png')}}" />
+                </td>
+                
+                <td>
+                    <img class='emoticon' title='fear' id='fear' src="{{url_for('static', filename='img/fear.png')}}" />
+                </td>
+
+                <td>
+                    <img class='emoticon' title='happiness' id='happiness' src="{{url_for('static', filename='img/happiness.png')}}" />
+                </td>
+
+                <td>
+                    <img class='emoticon' title='sadness' id='sadness' src="{{url_for('static', filename='img/sadness.png')}}" />
+                </td>
+                
+                <td>
+                    <img class='emoticon' title='surprise' id='surprise' src="{{url_for('static', filename='img/surprise.png')}}" />
+                </td>
+
+                <td>
+                    <img class='emoticon' title='neutrality' id='neutrality' src="{{url_for('static', filename='img/neutrality.png')}}" />
+                </td>
+
+            </tr>
+        </table>
+
+        
+
+    </div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='./scripts.js') }}"></script>
+    
+</body>
+</html>
