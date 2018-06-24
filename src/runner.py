@@ -16,27 +16,29 @@ def scale_frame(frame):
 def call_js(y):
     print(list(y))
 
-def show(dist):
+def show(dist,queue_size=None,sleep_time=None):
     dist = dist*100
     print(dist)
     print("The person is: {}".format(labels[np.argmax(dist)]))
+    if queue_size is not None and sleep_time is not None:
+        print("The queue size is {} while the sleep time was {}".format(queue_size,sleep_time))
 
 
 
 def main():
     model = keras.models.load_model('models/hg_first_53', custom_objects={'relu6': mobile.relu6})
-    q = queue.Queue()
+    q = queue.LifoQueue()
     t = threading.Thread(target=getdata.get_video_frames, kwargs={'queue':q,'frame_num':1},daemon=True)
     t.start()
     while True:
         raw_frame = q.get(block=True)
-        if not q.empty():
-            q.queue.clear()
         frame = scale_frame(raw_frame)
         frame_model_comp = np.expand_dims(np.expand_dims(frame,0),-1)
         res = (model.predict(frame_model_comp)[0])
-        show(res)
-        time.sleep(1)
+        show(res,q.qsize(),2)
+        if not q.empty():
+            q.queue.clear()
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()
