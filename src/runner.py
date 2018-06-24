@@ -50,7 +50,6 @@ def main():
         yield res
         if not q.empty():
             q.queue.clear()
-        time.sleep(1)
 
 if __name__ == '__main__':
     for x in main():
