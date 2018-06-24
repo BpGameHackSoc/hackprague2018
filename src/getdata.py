@@ -3,7 +3,7 @@
 import cv2
 import numpy as np
 
-def get_video_frames(out, frame_num=30, out_shape=(48,48)):
+def get_video_frames(queue, frame_num=30, out_shape=(48,48)):
     """Print the camera output into the out object"""
     frame_count = 0
     camera = cv2.VideoCapture(0)
@@ -17,7 +17,7 @@ def get_video_frames(out, frame_num=30, out_shape=(48,48)):
             frame_count = 0
             resized = cv2.resize(gray, (48,48))
             resized = np.array(resized)
-            out = resized
+            queue.put(resized)
             # give gray to the NN
         if cv2.waitKey(1)& 0xFF == ord('q'):
             break
