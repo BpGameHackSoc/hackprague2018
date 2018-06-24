@@ -1,13 +1,13 @@
 import sys
 sys.path.append('..')
 import threading, queue
-import getdata
-import mobile
+from . import getdata
+from . import mobile
 import keras
 import numpy as np
 import time
+# from mysocket import app
 
-import src.mysocket.routes as http_requester
 
 labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
@@ -16,7 +16,8 @@ def scale_frame(frame):
     return frame
 
 def call_js(y):
-    http_requester.distribution = y
+    # import src.mysocket.routes as http_requester
+    app.distribution = y
 
 def show(dist,queue_size=None,sleep_time=None):
     dist = dist*100
@@ -37,8 +38,9 @@ def main():
         frame = scale_frame(raw_frame)
         frame_model_comp = np.expand_dims(np.expand_dims(frame,0),-1)
         res = (model.predict(frame_model_comp)[0])
-        #show(res,q.qsize(),2)
-        call_js(res)
+        # show(res,q.qsize(),2)
+        # call_js(res)
+        yield res
         if not q.empty():
             q.queue.clear()
         time.sleep(1)

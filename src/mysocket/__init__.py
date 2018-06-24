@@ -1,3 +1,5 @@
 from flask import Flask
 app = Flask(__name__)
-from src.mysocket import routes
+from . import routes
+import numpy as np
+# app.distribution = np.zeros(7)

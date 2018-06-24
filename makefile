@@ -1,8 +1,8 @@
 
-export FLASK_APP=src/socket/run.py
+export FLASK_APP=src/mysocket/run.py
 
 mysocket:
 	flask run
 
 server:
-	python3 src/runner.py
+	python src/mysocket/run.py
