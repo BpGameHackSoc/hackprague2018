@@ -6,13 +6,16 @@ from . import mobile
 import keras
 import numpy as np
 import time
+from PIL import Image
 # from mysocket import app
 
 
 labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 def scale_frame(frame):
-    frame = frame.astype(np.float32)
+    im = Image.fromarray(np.array(frame))
+    im = im.resize(48,48)
+    frame = np.array(frame).astype(np.float32)
     return frame
 
 def call_js(y):
