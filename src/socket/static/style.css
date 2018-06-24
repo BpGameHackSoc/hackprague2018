@@ -1,0 +1,46 @@
+body {
+    font-family: Helvetica, sans-serif;
+    background: #eee;
+    padding:0px;
+    margin:0px;
+}
+
+.centerized, #yt_container {
+    margin: 0 auto;
+    width: 810px;
+    padding-top: 10px;
+    background: #113;
+}
+
+#yt_container{
+    padding-bottom: 10px;
+}
+
+#chartContainer {
+    margin: 0 auto;
+    width: 800px;
+    height: 380px;
+    position: relative;
+    z-index: 9;
+
+}
+
+#emoticon-table {
+    margin-left:12px;
+    width: 764px;
+}
+
+#emoticon-table td {
+    text-align:center;
+    width: 360px;
+}
+
+img {
+    margin-top: -380px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 99;
+    opacity: 0.8;
+
+}
