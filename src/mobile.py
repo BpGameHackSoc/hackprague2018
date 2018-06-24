@@ -60,7 +60,12 @@ from keras import backend,engine,layers,models,utils as keras_utils
 
 #from . import imagenet_utils
 #from .imagenet_utils import decode_predictions
-from imagenet_utils import _obtain_input_shape
+import sys
+sys.path.append('.')
+try:
+    from .imagenet_utils import _obtain_input_shape
+except ImportError:
+    from imagenet_utils import _obtain_input_shape
 
 
 BASE_WEIGHT_PATH = ('https://github.com/fchollet/deep-learning-models/'
