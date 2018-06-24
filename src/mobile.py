@@ -60,7 +60,7 @@ from keras import backend,engine,layers,models,utils as keras_utils
 
 #from . import imagenet_utils
 #from .imagenet_utils import decode_predictions
-from .imagenet_utils import _obtain_input_shape
+from imagenet_utils import _obtain_input_shape
 
 
 BASE_WEIGHT_PATH = ('https://github.com/fchollet/deep-learning-models/'
@@ -233,28 +233,28 @@ def MobileNet(input_shape=None,
         else:
             img_input = input_tensor
 
-    x = _conv_block(img_input, 32, alpha, strides=(2, 2))
-    x = _depthwise_conv_block(x, 64, alpha, depth_multiplier, block_id=1)
+    x = conv_block(img_input, 32, alpha, strides=(2, 2))
+    x = depthwise_conv_block(x, 64, alpha, depth_multiplier, block_id=1)
 
-    x = _depthwise_conv_block(x, 128, alpha, depth_multiplier,
-                              strides=(2, 2), block_id=2)
-    x = _depthwise_conv_block(x, 128, alpha, depth_multiplier, block_id=3)
+    x = depthwise_conv_block(x, 128, alpha, depth_multiplier,
+                             strides=(2, 2), block_id=2)
+    x = depthwise_conv_block(x, 128, alpha, depth_multiplier, block_id=3)
 
-    x = _depthwise_conv_block(x, 256, alpha, depth_multiplier,
-                              strides=(2, 2), block_id=4)
-    x = _depthwise_conv_block(x, 256, alpha, depth_multiplier, block_id=5)
+    x = depthwise_conv_block(x, 256, alpha, depth_multiplier,
+                             strides=(2, 2), block_id=4)
+    x = depthwise_conv_block(x, 256, alpha, depth_multiplier, block_id=5)
 
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier,
-                              strides=(2, 2), block_id=6)
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=7)
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=8)
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=9)
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=10)
-    x = _depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=11)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier,
+                             strides=(2, 2), block_id=6)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=7)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=8)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=9)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=10)
+    x = depthwise_conv_block(x, 512, alpha, depth_multiplier, block_id=11)
 
-    x = _depthwise_conv_block(x, 1024, alpha, depth_multiplier,
-                              strides=(2, 2), block_id=12)
-    x = _depthwise_conv_block(x, 1024, alpha, depth_multiplier, block_id=13)
+    x = depthwise_conv_block(x, 1024, alpha, depth_multiplier,
+                             strides=(2, 2), block_id=12)
+    x = depthwise_conv_block(x, 1024, alpha, depth_multiplier, block_id=13)
 
     if include_top:
         if backend.image_data_format() == 'channels_first':
@@ -321,7 +321,10 @@ def MobileNet(input_shape=None,
     return model
 
 
-def _conv_block(inputs, filters, alpha, kernel=(3, 3), strides=(1, 1)):
+
+
+
+def conv_block(inputs, filters, alpha, kernel=(2, 2), strides=(1, 1)):
     """Adds an initial convolution layer (with batch normalization and relu6).
     # Arguments
         inputs: Input tensor of shape `(rows, cols, 3)`
@@ -378,8 +381,8 @@ def _conv_block(inputs, filters, alpha, kernel=(3, 3), strides=(1, 1)):
     return layers.Activation(relu6, name='conv1_relu')(x)
 
 
-def _depthwise_conv_block(inputs, pointwise_conv_filters, alpha,
-                          depth_multiplier=1, strides=(1, 1), block_id=1):
+def depthwise_conv_block(inputs, pointwise_conv_filters, alpha,
+                         depth_multiplier=1, strides=(1, 1), block_id=1,kernel_size=(2,2)):
     """Adds a depthwise convolution block.
     A depthwise convolution block consists of a depthwise conv,
     batch normalization, relu6, pointwise convolution,
@@ -434,7 +437,7 @@ def _depthwise_conv_block(inputs, pointwise_conv_filters, alpha,
     else:
         x = layers.ZeroPadding2D(((0, 1), (0, 1)),
                                  name='conv_pad_%d' % block_id)(inputs)
-    x = layers.DepthwiseConv2D((3, 3),
+    x = layers.DepthwiseConv2D(kernel_size,
                                padding='same' if strides == (1, 1) else 'valid',
                                depth_multiplier=depth_multiplier,
                                strides=strides,
